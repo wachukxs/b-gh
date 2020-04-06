@@ -52,4 +52,5 @@ class Clients {
         return $query_statement;
 
     }
+
 }
