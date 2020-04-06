@@ -16,7 +16,7 @@ $a_database_connection = $database_connection->connect();
 $client = new Clients($a_database_connection);
 
 // Get ID [& set client id if id available]
-$client_id = isset($_GET['id']) ? $_GET['id'] : die();
+$client_id = isset($_GET['id']) ? $_GET['id'] : die(); // die? or appropriate msg
 
 // Get the client [details]
 $result = $client->getSingleClientByID($client_id);

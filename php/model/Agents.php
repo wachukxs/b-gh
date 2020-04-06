@@ -47,4 +47,22 @@ class Agents {
             return false;
         }
     }
+
+    public function getSingleAgentByID($id)
+    {
+        // Create query
+        $query = 'SELECT * FROM ' . $this->table . ' WHERE id = ?';
+
+        // Prepare statement
+        $query_statement = $this->database_connection->prepare($query);
+
+        // Execute query statement
+        $query_statement->bindParam(1, $id);
+
+        // Execute query statement
+        $query_statement->execute();
+
+        return $query_statement;
+
+    }
 }
