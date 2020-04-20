@@ -65,4 +65,38 @@ class Agents {
         return $query_statement;
 
     }
+
+    // Verify new client, an entry
+    public function verifyAgent($password, $email) {
+        $query = 'SELECT email, id FROM ' . $this->table . '
+            WHERE
+            email = ? AND
+            password = ?
+        ';
+
+        $stmt = $this->database_connection->prepare($query);
+
+        // Ensure safe data
+        $e = htmlspecialchars(strip_tags($email));
+        $p = htmlspecialchars(strip_tags($password));
+
+        // Bind parameters to prepared stmt
+        $stmt->bindParam(1, $e);
+        $stmt->bindParam(2, $p);
+
+        if ($stmt->execute() && $stmt->rowCount() == 1) {
+
+            $row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            extract($row);
+
+            // Create array
+            return array(
+                'id' => $id,
+                'email' => $email,
+            ); // SHOULD RETURN AN OBJECT OF THE agent data
+        } else {
+            return array();
+        }
+    }
 }
